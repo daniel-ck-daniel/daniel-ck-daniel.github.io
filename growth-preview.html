@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Personal Growth Dashboard — Design Preview</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: #f5f5f5;
+  padding: 2rem;
+  line-height: 1.6;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+h1 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  color: #333;
+}
+
+.intro {
+  color: #666;
+  margin-bottom: 3rem;
+  font-size: 1.1rem;
+}
+
+.section {
+  background: white;
+  border-radius: 12px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.section h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  color: #333;
+  border-bottom: 2px solid #e0e0e0;
+  padding-bottom: 0.5rem;
+}
+
+.options {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.option {
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.option:hover {
+  border-color: #667eea;
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
+}
+
+.option-label {
+  background: #f8f9fa;
+  padding: 0.75rem 1rem;
+  font-weight: 600;
+  color: #333;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.option-preview {
+  padding: 1.5rem;
+  min-height: 200px;
+}
+
+/* AESTHETIC PREVIEWS */
+.preview-dark {
+  background: linear-gradient(135deg, #0d1117 0%, #161b22 100%);
+  color: #e6edf3;
+}
+
+.preview-dark .sample-heading {
+  color: #e85d3a;
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+
+.preview-dark .sample-text {
+  color: #8b949e;
+  font-size: 0.9rem;
+}
+
+.preview-warm {
+  background: linear-gradient(135deg, #f5f1e8 0%, #faf8f3 100%);
+  color: #3e3528;
+}
+
+.preview-warm .sample-heading {
+  color: #c17839;
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+
+.preview-warm .sample-text {
+  color: #6b5d4f;
+  font-size: 0.9rem;
+}
+
+.preview-minimal {
+  background: #ffffff;
+  color: #222;
+  border-left: 3px solid #000;
+}
+
+.preview-minimal .sample-heading {
+  color: #000;
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+  font-weight: 700;
+}
+
+.preview-minimal .sample-text {
+  color: #555;
+  font-size: 0.9rem;
+}
+
+.preview-nature {
+  background: linear-gradient(135deg, #e8f4f0 0%, #f0f8f5 100%);
+  color: #1a4d3a;
+}
+
+.preview-nature .sample-heading {
+  color: #2d7a5f;
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+
+.preview-nature .sample-text {
+  color: #4a7a67;
+  font-size: 0.9rem;
+}
+
+/* NAVIGATION PREVIEWS */
+.nav-preview {
+  background: #f8f9fa;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.nav-sidebar {
+  display: grid;
+  grid-template-columns: 150px 1fr;
+  min-height: 180px;
+}
+
+.nav-sidebar .sidebar {
+  background: #2c3e50;
+  color: white;
+  padding: 1rem;
+}
+
+.nav-sidebar .sidebar-item {
+  padding: 0.5rem;
+  margin-bottom: 0.3rem;
+  border-radius: 4px;
+  font-size: 0.85rem;
+}
+
+.nav-sidebar .sidebar-item.active {
+  background: rgba(255,255,255,0.1);
+}
+
+.nav-sidebar .content {
+  padding: 1rem;
+  color: #333;
+  font-size: 0.85rem;
+}
+
+.nav-topbar {
+  min-height: 180px;
+}
+
+.nav-topbar .topbar {
+  background: #667eea;
+  color: white;
+  padding: 0.75rem 1rem;
+  display: flex;
+  gap: 1rem;
+  font-size: 0.85rem;
+}
+
+.nav-topbar .topbar-item {
+  padding: 0.3rem 0.6rem;
+  border-radius: 4px;
+}
+
+.nav-topbar .topbar-item.active {
+  background: rgba(255,255,255,0.2);
+}
+
+.nav-topbar .content {
+  padding: 1rem;
+  color: #333;
+  font-size: 0.85rem;
+}
+
+.nav-index {
+  padding: 1.5rem;
+  min-height: 180px;
+}
+
+.nav-index .index-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+.nav-index .index-links {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.nav-index .index-link {
+  color: #667eea;
+  font-size: 0.9rem;
+  text-decoration: none;
+  padding: 0.4rem 0;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.nav-index .index-link:hover {
+  color: #5568d3;
+}
+
+/* VISUAL TONE PREVIEWS */
+.tone-sparse {
+  background: white;
+  padding: 1.5rem;
+}
+
+.tone-sparse .title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: #222;
+}
+
+.tone-sparse .content {
+  color: #555;
+  font-size: 0.9rem;
+  line-height: 1.8;
+}
+
+.tone-rich {
+  background: white;
+  padding: 1.5rem;
+}
+
+.tone-rich .icon {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.tone-rich .title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: #667eea;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.tone-rich .tag {
+  display: inline-block;
+  background: #f0f4ff;
+  color: #667eea;
+  padding: 0.2rem 0.6rem;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  margin-right: 0.3rem;
+}
+
+.tone-rich .content {
+  color: #555;
+  font-size: 0.9rem;
+  line-height: 1.8;
+  margin-top: 0.8rem;
+}
+
+.tone-rich .meta {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid #e0e0e0;
+  font-size: 0.8rem;
+  color: #999;
+}
+
+@media (max-width: 768px) {
+  body {
+    padding: 1rem;
+  }
+  
+  .options {
+    grid-template-columns: 1fr;
+  }
+  
+  .nav-sidebar {
+    grid-template-columns: 100px 1fr;
+  }
+  
+  h1 {
+    font-size: 1.5rem;
+  }
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <h1>Personal Growth Dashboard — Design Options</h1>
+  <p class="intro">Visual previews of different design directions. Click through to get a feel for each style.</p>
+
+  <!-- AESTHETIC -->
+  <div class="section">
+    <h2>1. Aesthetic / Color Palette</h2>
+    <div class="options">
+      
+      <div class="option">
+        <div class="option-label">Professional Dark (like Big 5)</div>
+        <div class="option-preview preview-dark">
+          <div class="sample-heading">Core Principle</div>
+          <div class="sample-text">Action precedes clarity. Small moves break the cycle of rumination. You cannot think your way out of what you behaved your way into.</div>
+        </div>
+      </div>
+
+      <div class="option">
+        <div class="option-label">Warm Journal Tones</div>
+        <div class="option-preview preview-warm">
+          <div class="sample-heading">Core Principle</div>
+          <div class="sample-text">Action precedes clarity. Small moves break the cycle of rumination. You cannot think your way out of what you behaved your way into.</div>
+        </div>
+      </div>
+
+      <div class="option">
+        <div class="option-label">Stark Minimal</div>
+        <div class="option-preview preview-minimal">
+          <div class="sample-heading">Core Principle</div>
+          <div class="sample-text">Action precedes clarity. Small moves break the cycle of rumination. You cannot think your way out of what you behaved your way into.</div>
+        </div>
+      </div>
+
+      <div class="option">
+        <div class="option-label">Nature / Growth Palette</div>
+        <div class="option-preview preview-nature">
+          <div class="sample-heading">Core Principle</div>
+          <div class="sample-text">Action precedes clarity. Small moves break the cycle of rumination. You cannot think your way out of what you behaved your way into.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- NAVIGATION -->
+  <div class="section">
+    <h2>2. Navigation Style</h2>
+    <div class="options">
+      
+      <div class="option">
+        <div class="option-label">Sidebar Navigation</div>
+        <div class="option-preview">
+          <div class="nav-preview nav-sidebar">
+            <div class="sidebar">
+              <div class="sidebar-item active">Principles</div>
+              <div class="sidebar-item">Growth Areas</div>
+              <div class="sidebar-item">Insights</div>
+              <div class="sidebar-item">Reading</div>
+              <div class="sidebar-item">Energy Audit</div>
+            </div>
+            <div class="content">
+              <strong>Principles</strong><br>
+              Your core values and philosophies. The foundation of your growth work.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="option">
+        <div class="option-label">Top Tab Navigation</div>
+        <div class="option-preview">
+          <div class="nav-preview nav-topbar">
+            <div class="topbar">
+              <div class="topbar-item active">Principles</div>
+              <div class="topbar-item">Growth</div>
+              <div class="topbar-item">Insights</div>
+              <div class="topbar-item">Reading</div>
+            </div>
+            <div class="content">
+              <strong>Principles</strong><br>
+              Your core values and philosophies. The foundation of your growth work.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="option">
+        <div class="option-label">Simple Index / Wiki Style</div>
+        <div class="option-preview">
+          <div class="nav-preview nav-index">
+            <div class="index-title">Personal Growth Dashboard</div>
+            <div class="index-links">
+              <a href="#" class="index-link">→ Principles — Core values & philosophy</a>
+              <a href="#" class="index-link">→ Growth Areas — Active development work</a>
+              <a href="#" class="index-link">→ Insights Log — Realizations & breakthroughs</a>
+              <a href="#" class="index-link">→ Reading — Suggested books & resources</a>
+              <a href="#" class="index-link">→ Energy Audit — What drains vs. energizes</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- VISUAL TONE -->
+  <div class="section">
+    <h2>3. Visual Tone / Information Density</h2>
+    <div class="options">
+      
+      <div class="option">
+        <div class="option-label">Sparse & Focused</div>
+        <div class="option-preview tone-sparse">
+          <div class="title">Attention is your most valuable resource</div>
+          <div class="content">
+            Where it goes consistently, your life follows. What you focus on grows. Design your attention deliberately.
+          </div>
+        </div>
+      </div>
+
+      <div class="option">
+        <div class="option-label">Rich with Visual Hierarchy</div>
+        <div class="option-preview tone-rich">
+          <div class="icon">🎯</div>
+          <div class="title">
+            Attention is your most valuable resource
+          </div>
+          <div>
+            <span class="tag">Core Truth</span>
+            <span class="tag">Daily Practice</span>
+          </div>
+          <div class="content">
+            Where it goes consistently, your life follows. What you focus on grows. Design your attention deliberately.
+          </div>
+          <div class="meta">Added Feb 2026 · Reviewed 3 times</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>
